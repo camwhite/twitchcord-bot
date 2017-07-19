@@ -1,8 +1,12 @@
 {
   "name": "twitchcord-bot",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A twitch dirscord bot",
   "main": "index.js",
+  "bin": {
+    "twitchcord": "./bin/global.js"
+  },
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/camwhite/twitchcord-bot"
