@@ -16,7 +16,6 @@ class Bot {
 
     // Twitch client listeners
     twitchClient.on('message', (channel, userstate, message, self) => {
-      //discordClient.user.setUsername('twitchcord-bot')
 
       console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
 
@@ -28,6 +27,7 @@ class Bot {
       const userstate = { 'display-name': username }
       const message = 'has joined the stream :O'
 
+      console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
       if (this.channel) {
         this.sendToDiscord({ userstate, message })
       }
@@ -36,6 +36,7 @@ class Bot {
       const userstate = { 'display-name': username }
       const message = 'has left the stream :O'
 
+      console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
       if (this.channel) {
         this.sendToDiscord({ userstate, message })
       }
