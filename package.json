@@ -1,0 +1,24 @@
+{
+  "name": "twitchcord-bot",
+  "version": "1.0.0",
+  "description": "A twitch dirscord bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "node",
+    "twitch",
+    "discord"
+  ],
+  "author": "camwhite",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "discord.js": "^11.1.0",
+    "tmi.js": "^1.2.1",
+    "yargs": "^8.0.2"
+  }
+}
