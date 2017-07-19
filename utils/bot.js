@@ -67,7 +67,10 @@ class Bot {
       throw new Error(err)
     }
 
-    Commands.testForCommand(message)
+    const response = await Commands.testForCommand(message)()
+    if (response) {
+      twitchClient.say(author.username, `${response.artist} - ${response.name}`)
+    }
 
     return sent
   }
@@ -84,7 +87,10 @@ class Bot {
       throw new Error(err)
     }
 
-    Commands.testForCommand(content)
+    const response = await Commands.testForCommand(content)()
+    if (response) {
+      twitchClient.say(author.username, `${response.artist} - ${response.name}`)
+    }
 
     return sent
   }

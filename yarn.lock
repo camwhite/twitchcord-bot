@@ -20,6 +20,10 @@ ansi-styles@^3.1.0:
   dependencies:
     color-convert "^1.0.0"
 
+applescript@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/applescript/-/applescript-1.0.0.tgz#bb87af568cad034a4e48c4bdaf6067a3a2701317"
+
 aproba@^1.0.3:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.2.tgz#45c6629094de4e96f693ef7eab74ae079c240fc1"
@@ -806,6 +810,12 @@ spdx-expression-parse@~1.0.0:
 spdx-license-ids@^1.0.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-1.2.2.tgz#c9df7a3424594ade6bd11900d596696dc06bac57"
+
+spotify-node-applescript@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/spotify-node-applescript/-/spotify-node-applescript-1.1.0.tgz#6ebe6d1a661887c7fbb77818f1e8910f80604f21"
+  dependencies:
+    applescript "1.0.0"
 
 sshpk@^1.7.0:
   version "1.13.1"
