@@ -1,6 +1,6 @@
 {
   "name": "twitchcord-bot",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A twitch dirscord bot",
   "main": "index.js",
   "bin": {

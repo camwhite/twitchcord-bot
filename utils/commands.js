@@ -63,11 +63,11 @@ class Commands {
   static rickroll () {
     return new Promise(resolve => {
       if (!isRolling) {
+        isRolling = true
         setTimeout(() => isRolling = false, 6000000)
         open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         resolve()
       } else {
-        isRolling = true
         resolve('Can\'t roll again right now')
       }
     })
