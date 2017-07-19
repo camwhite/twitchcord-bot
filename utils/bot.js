@@ -1,6 +1,7 @@
 'use strict'
 
 const { twitch, discord } = require('./config')
+const Commands = require('./commands')
 
 const chalk = require('chalk')
 const tmi = require('tmi.js')
@@ -11,6 +12,7 @@ const discordClient = new Discord.Client()
 
 class Bot {
   constructor () {
+    // Initalize the clients
     twitchClient.connect()
     discordClient.login(discord.token)
 
@@ -25,7 +27,7 @@ class Bot {
     })
     twitchClient.on('join', (channel, username, self) => {
       const userstate = { 'display-name': username }
-      const message = 'has joined the stream :O'
+      const message = 'has joined the stream!'
 
       console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
       if (this.channel) {
@@ -34,7 +36,7 @@ class Bot {
     })
     twitchClient.on('part', (channel, username, self) => {
       const userstate = { 'display-name': username }
-      const message = 'has left the stream :O'
+      const message = 'has left the stream :/'
 
       console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
       if (this.channel) {
@@ -65,6 +67,8 @@ class Bot {
       throw new Error(err)
     }
 
+    Commands.testForCommand(message)
+
     return sent
   }
   /**
@@ -79,6 +83,8 @@ class Bot {
     } catch (err) {
       throw new Error(err)
     }
+
+    Commands.testForCommand(content)
 
     return sent
   }
