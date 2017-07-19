@@ -1,6 +1,6 @@
-# Twicthcord
+# Twitchcord
 
-*A bot lining twitch and discord*
+*A bot linking twitch and discord*
 
 ### Installation and Usage
 
@@ -8,4 +8,6 @@
 
 `yarn` or `npm i`
 
-`node index --token=<your-discord-token> --handle=<your-discord-and-twitch-handle> --password=<your-twitch-password> --channel=<your-discord-channel>`
+```
+node index --token=<your-discord-token> --handle=<your-discord-and-twitch-handle> --password=<your-twitch-oauth-password> --channel=<your-discord-channel>
+```
