@@ -32,6 +32,14 @@ class Bot {
         this.sendToDiscord({ userstate, message })
       }
     })
+    twitchClient.on('part', (channel, username, self) => {
+      const userstate = { 'display-name': username }
+      const message = 'has left the stream :O'
+
+      if (this.channel) {
+        this.sendToDiscord({ userstate, message })
+      }
+    })
 
     // Discord client listeners
     discordClient.on('ready', () => {
