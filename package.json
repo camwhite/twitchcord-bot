@@ -18,7 +18,7 @@
   "dependencies": {
     "chalk": "^2.0.1",
     "discord.js": "^11.1.0",
-    "robotjs": "^0.4.7",
+    "open": "^0.0.5",
     "spotify-node-applescript": "^1.1.0",
     "tmi.js": "^1.2.1",
     "yargs": "^8.0.2"

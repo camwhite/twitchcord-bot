@@ -1,27 +1,38 @@
 'use strict'
 
-const robot = require('robotjs')
+const open = require('open')
 const spotify = require('spotify-node-applescript')
+
+let isRolling
 
 class Commands {
   static testForCommand (message) {
     switch (message) {
+      case '!discord' :
+        return this.invite()
       case '!songname' :
-        return this.songName
+        return this.songName()
       case '!next' :
-        return this.nextTrack
+        return this.nextTrack()
       case '!previous' :
-        return this.previousTrack
+        return this.previousTrack()
       case '!rickroll' :
-        this.rickroll()
+        return this.rickroll()
     }
 
+  }
+  static invite () {
+    return new Promise(resolve => {
+      resolve(`https://discord.gg/9S942jY`)
+    })
   }
   static songName () {
     return new Promise((resolve, reject) => {
       spotify.getTrack((err, track) => {
         if (err) reject(err)
-        resolve(track)
+
+        const response = `${track.artist} - ${track.name}`
+        resolve(response)
       })
     })
   }
@@ -30,7 +41,9 @@ class Commands {
       spotify.next(() => {
         spotify.getTrack((err, track) => {
           if (err) reject(err)
-          resolve(track)
+
+          const response = `${track.artist} - ${track.name}`
+          resolve(response)
         })
       })
     })
@@ -40,13 +53,23 @@ class Commands {
       spotify.previous(() => {
         spotify.getTrack((err, track) => {
           if (err) reject(err)
-          resolve(track)
+
+          const response = `${track.artist} - ${track.name}`
+          resolve(response)
         })
       })
     })
   }
   static rickroll () {
-    robot.keyTap('4', [ 'control', 'shift' ])
+    return new Promise(resolve => {
+      if (!isRolling) {
+        setTimeout(() => hasRolled = false, 6000000)
+        open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+      }
+
+      resolve(isRolling ? 'Can\'t roll again right now' : null)
+      isRolling = true
+    })
   }
 }
 
