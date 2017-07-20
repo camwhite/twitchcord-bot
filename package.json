@@ -27,6 +27,7 @@
     "open": "^0.0.5",
     "spotify-node-applescript": "^1.1.0",
     "tmi.js": "^1.2.1",
-    "yargs": "^8.0.2"
+    "yargs": "^8.0.2",
+    "youtube-audio-stream": "0.0.50"
   }
 }
