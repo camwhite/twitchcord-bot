@@ -1,13 +1,15 @@
 'use strict'
 
 const open = require('open')
+const figlet = require('figlet')
+const google = require('google')
 const spotify = require('spotify-node-applescript')
 
 let isRolling
 
 class Commands {
   static testForCommand (message) {
-    switch (message) {
+    switch (message.split(' ')[0]) {
       case '!discord' :
         return this.invite()
       case '!songname' :
@@ -18,8 +20,12 @@ class Commands {
         return this.previousTrack()
       case '!rickroll' :
         return this.rickroll()
+      case '!ascii' :
+        return this.ascii()
+      case '!google' :
+        const query = message.split(' ').splice(1, message.length).join(' ')
+        return this.google(query)
     }
-
   }
   static invite () {
     return new Promise(resolve => {
@@ -70,6 +76,26 @@ class Commands {
       } else {
         resolve('Can\'t roll again right now')
       }
+    })
+  }
+  static ascii () {
+    return new Promise(resolve => {
+      figlet('Foo', {
+        font: 'rectangles', horizantalLayout: 'fitted' }, (err, data) => {
+        resolve(`
+          ${data}
+        `)
+      })
+    })
+  }
+  static google (query) {
+    return new Promise((resolve, reject) => {
+      google(query, (err, { links }) => {
+        if(err) return reject(err)
+
+        const topFiveLinks = links.slice(0, 6)
+        resolve(topFiveLinks)
+      })
     })
   }
 }

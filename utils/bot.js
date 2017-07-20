@@ -68,9 +68,7 @@ class Bot {
     }
 
     const response = await Commands.testForCommand(message)
-    if (response) {
-      twitchClient.say(twitch.identity.username, response)
-    }
+    this.handleResponse(twitch.identity.username, response)
 
     return sent
   }
@@ -88,11 +86,16 @@ class Bot {
     }
 
     const response = await Commands.testForCommand(content)
-    if (response) {
-      twitchClient.say(author.username, response)
-    }
+    this.handleResponse(author.username, response)
 
     return sent
+  }
+  handleResponse (username, response) {
+    if (response && !Array.isArray(response)) {
+      twitchClient.say(username, response)
+    } else if (response && Array.isArray(response)) {
+      response.forEach(r => twitchClient.say(username, r.link))
+    }
   }
 }
 
