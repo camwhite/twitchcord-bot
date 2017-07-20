@@ -23,7 +23,7 @@ class Commands {
       case '!ascii' :
         return this.ascii()
       case '!google' :
-        const query = message.split(' ').splice(1, message.length).join(' ')
+        const query = message.split(' ').splice(1, message.length).join(' ') || message.split(' ')[1]
         return this.google(query)
     }
   }
