@@ -25,6 +25,9 @@ class Commands {
       case '!google' :
         const query = message.split(' ').splice(1, message.length).join(' ') || message.split(' ')[1]
         return this.google(query)
+      case '!request' :
+        const uri = message.split(' ')[1]
+        return this.playTrack(uri)
     }
   }
   static invite () {
@@ -39,6 +42,18 @@ class Commands {
 
         const response = `${track.artist} - ${track.name}`
         resolve(response)
+      })
+    })
+  }
+  static playTrack (uri) {
+    return new Promise((resolve, reject) => {
+      spotify.playTrack(uri, () => {
+        spotify.getTrack((err, track) => {
+          if (err) reject(err)
+
+          const response = `${track.artist} - ${track.name}`
+          resolve(response)
+        })
       })
     })
   }
