@@ -4,6 +4,10 @@ const open = require('open')
 const figlet = require('figlet')
 const google = require('google')
 const spotify = require('spotify-node-applescript')
+const stream = require('youtube-audio-stream')
+const decoder = require('lame').Decoder
+const speaker = require('speaker')
+const streamToPromise = require('stream-to-promise')
 
 let isRolling
 
@@ -28,13 +32,18 @@ class Commands {
       case '!request' :
         const uri = message.split(' ')[1]
         return this.playTrack(uri)
+      case '!youtube' :
+        const url = message.split(' ')[1]        
+        return this.youtube(url)
     }
   }
+
   static invite () {
     return new Promise(resolve => {
       resolve(`https://discord.gg/9S942jY`)
     })
   }
+
   static songName () {
     return new Promise((resolve, reject) => {
       spotify.getTrack((err, track) => {
@@ -45,6 +54,7 @@ class Commands {
       })
     })
   }
+
   static playTrack (uri) {
     return new Promise((resolve, reject) => {
       spotify.playTrack(uri, () => {
@@ -57,6 +67,15 @@ class Commands {
       })
     })
   }
+
+  static youtube (url) {
+    const readableStream = stream(url)
+      .pipe(decoder())
+      .pipe(speaker())
+
+    return streamToPromise(readableStream)
+  }
+
   static nextTrack () {
     return new Promise((resolve, reject) => {
       spotify.next(() => {
@@ -69,6 +88,7 @@ class Commands {
       })
     })
   }
+
   static previousTrack () {
     return new Promise((resolve, reject) => {
       spotify.previous(() => {
@@ -81,6 +101,7 @@ class Commands {
       })
     })
   }
+
   static rickroll () {
     return new Promise(resolve => {
       if (!isRolling) {
@@ -93,6 +114,7 @@ class Commands {
       }
     })
   }
+
   static ascii () {
     return new Promise(resolve => {
       figlet('Foo', {
@@ -103,6 +125,7 @@ class Commands {
       })
     })
   }
+
   static google (query) {
     return new Promise((resolve, reject) => {
       google(query, (err, { links }) => {
