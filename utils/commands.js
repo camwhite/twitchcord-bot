@@ -4,7 +4,7 @@ const open = require('open')
 const figlet = require('figlet')
 const google = require('google')
 const spotify = require('spotify-node-applescript')
-const youtubeStream = require('youtube-audio-stream')
+const stream = require('youtube-audio-stream')
 const decoder = require('lame').Decoder
 const speaker = require('speaker')
 const streamToPromise = require('stream-to-promise')
@@ -32,10 +32,9 @@ class Commands {
       case '!request' :
         const uri = message.split(' ')[1]
         return this.playTrack(uri)
-        // Check for full link and shortlinks
-        case '!youtube' :
-          const url = message.split(' ')[1]        
-          return this.youtube(url)
+      case '!youtube' :
+        const url = message.split(' ')[1]        
+        return this.youtube(url)
     }
   }
 
@@ -70,12 +69,11 @@ class Commands {
   }
 
   static youtube (url) {
-    return streamToPromise(readableStream)
-    
     const readableStream = stream(url)
       .pipe(decoder())
       .pipe(speaker())
-      .emit('end')
+
+    return streamToPromise(readableStream)
   }
 
   static nextTrack () {
