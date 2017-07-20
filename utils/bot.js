@@ -49,7 +49,7 @@ class Bot {
       this.channel = discordClient.channels.find('name', discord.channel)
     })
     discordClient.on('message', (message) => {
-      if (message.author.username === twitch.identity.username) {
+      if (message.author.username === twitch.identity.username && message.channel.name === discord.channel) {
         this.sendToTwitch(message)
       }
     })
