@@ -35,6 +35,8 @@ class Commands {
       case '!youtube' :
         const url = message.split(' ')[1]        
         return this.youtube(url)
+      case '!commands' :
+        return this.commands()
     }
   }
 
@@ -134,6 +136,13 @@ class Commands {
         const topFiveLinks = links.slice(0, 6)
         resolve(topFiveLinks)
       })
+    })
+  }
+
+  static commands () {
+    return new Promise((resolve, reject) => {
+      resolve(`!discord, !songname, !next, !previous, !rickroll,
+        !ascii, !google, !request and !youtube`) 
     })
   }
 }
