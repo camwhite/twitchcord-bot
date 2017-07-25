@@ -5,6 +5,7 @@ const Commands = require('./commands')
 
 const chalk = require('chalk')
 const tmi = require('tmi.js')
+const chuck = require('chuck-norris-api')
 const Discord = require('discord.js')
 
 const twitchClient = new tmi.client(twitch)
@@ -33,6 +34,15 @@ class Bot {
       if (this.channel) {
         this.sendToDiscord({ userstate, message })
       }
+
+      chuck.getRandom()
+        .then(({ value }) => {
+          const data = {
+            content: `Welcome ${username}, ${value.joke}`,
+            author: { username: twitch.identity.username }
+          }
+          this.sendToTwitch(data)
+        })
     })
     twitchClient.on('part', (channel, username, self) => {
       const userstate = { 'display-name': username }
