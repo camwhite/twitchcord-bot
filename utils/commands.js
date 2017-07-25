@@ -24,17 +24,22 @@ class Commands {
         return this.previousTrack()
       case '!rickroll' :
         return this.rickroll()
-      case '!ascii' :
-        return this.ascii()
-      case '!google' :
-        const query = message.split(' ').splice(1, message.length).join(' ') || message.split(' ')[1]
-        return this.google(query)
       case '!request' :
         const uri = message.split(' ')[1]
         return this.playTrack(uri)
       case '!youtube' :
         const url = message.split(' ')[1]        
         return this.youtube(url)
+      case '!ascii' :
+        const art = message.split(' ').splice(1, message.length).join(' ')
+                    || message.split(' ')[1]
+
+        return this.ascii(art)
+      case '!google' :
+        const query = message.split(' ').splice(1, message.length).join(' ')
+                      || message.split(' ')[1]
+
+        return this.google(query)
     }
   }
 
@@ -115,13 +120,13 @@ class Commands {
     })
   }
 
-  static ascii () {
+  static ascii (art) {
     return new Promise(resolve => {
-      figlet('Foo', {
-        font: 'rectangles', horizantalLayout: 'fitted' }, (err, data) => {
-        resolve(`
-          ${data}
-        `)
+      figlet(art, {
+        font: 'rectangles',
+        horizantalLayout: 'fitted'
+      }, (err, data) => {
+        resolve(data)
       })
     })
   }
@@ -129,7 +134,7 @@ class Commands {
   static google (query) {
     return new Promise((resolve, reject) => {
       google(query, (err, { links }) => {
-        if(err) return reject(err)
+        if(err) reject(err)
 
         const topFiveLinks = links.slice(0, 6)
         resolve(topFiveLinks)
