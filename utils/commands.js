@@ -156,7 +156,7 @@ class Commands {
 
   static uptime () {
     return new Promise((resolve, reject) => {
-      result(`https://decapi.me/twitch/uptime?channel=${twitch.identity.username}`)
+      resolve(`https://decapi.me/twitch/uptime?channel=${twitch.identity.username}`)
     })
   }
 }
