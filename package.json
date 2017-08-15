@@ -1,7 +1,7 @@
 {
   "name": "twitchcord-bot",
   "version": "1.5.7",
-  "description": "A twitch dirscord bot",
+  "description": "A Twitch Discord bot",
   "main": "index.js",
   "bin": {
     "twitchcord": "./bin/global.js"
