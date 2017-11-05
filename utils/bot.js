@@ -5,7 +5,6 @@ const Commands = require('./commands')
 
 const chalk = require('chalk')
 const tmi = require('tmi.js')
-const chuck = require('chuck-norris-api')
 const Discord = require('discord.js')
 
 const twitchClient = new tmi.client(twitch)
@@ -19,38 +18,34 @@ class Bot {
 
     // Twitch client listeners
     twitchClient.on('message', (channel, userstate, message, self) => {
+      const username = userstate['display-name']
+      console.log(`${chalk.green(username)}: ${message}`)
 
-      console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
-
-      if (userstate['display-name'] !== twitch.identity.username) {
-        this.sendToDiscord({ userstate, message })
+      if (username !== twitch.identity.username) {
+        this.sendToDiscord({ username, message })
       }
     })
     twitchClient.on('join', (channel, username, self) => {
-      const userstate = { 'display-name': username }
-      const message = 'has joined the stream!'
+      const message = 'has joined the stream :)'
+      console.log(`${chalk.green(username)}: ${message}`)
 
-      console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
-      if (this.channel) {
-        this.sendToDiscord({ userstate, message })
+      // Create a greeting and send it to twitch
+      const greeting = {
+        content: `Suhhhh ${username} you the man now dog, but don't lurk O_o`,
+        author: { username: twitch.identity.username }
       }
+      this.sendToTwitch(greeting)
 
-      chuck.getRandom()
-        .then(({ value }) => {
-          const data = {
-            content: `Welcome ${username}, ${value.joke}`,
-            author: { username: twitch.identity.username }
-          }
-          this.sendToTwitch(data)
-        })
+      if (this.channel) {
+        this.sendToDiscord({ username, message })
+      }
     })
     twitchClient.on('part', (channel, username, self) => {
-      const userstate = { 'display-name': username }
-      const message = 'has left the stream :/'
+      const message = 'has left the stream :('
+      console.log(`${chalk.green(username)}: ${message}`)
 
-      console.log(`${chalk.green(userstate['display-name'])}: ${message}`)
       if (this.channel) {
-        this.sendToDiscord({ userstate, message })
+        this.sendToDiscord({ username, message })
       }
     })
 
@@ -59,7 +54,8 @@ class Bot {
       this.channel = discordClient.channels.find('name', discord.channel)
     })
     discordClient.on('message', (message) => {
-      if (message.author.username === twitch.identity.username && message.channel.name === discord.channel) {
+      if (message.author.username === twitch.identity.username &&
+          message.channel.name === discord.channel) {
         this.sendToTwitch(message)
       }
     })
@@ -69,10 +65,10 @@ class Bot {
   * @param {object} the message data
   * @return {promise} the sent message
   */
-  async sendToDiscord ({ userstate, message }) {
+  async sendToDiscord ({ username, message }) {
     let sent
     try {
-      sent = await this.channel.send(`**${userstate['display-name']}** ${message}`)
+      sent = await this.channel.send(`**${username}** ${message}`)
     } catch (err) {
       throw new Error(err)
     }
