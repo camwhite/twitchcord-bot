@@ -8,6 +8,7 @@ const stream = require('youtube-audio-stream')
 const decoder = require('lame').Decoder
 const speaker = require('speaker')
 const streamToPromise = require('stream-to-promise')
+const { twitch } = require('./config')
 
 let isRolling
 
@@ -40,6 +41,8 @@ class Commands {
                       || message.split(' ')[1]
 
         return this.google(query)
+      case '!uptime' : 
+        return this.uptime()
       case '!commands' :
         return this.commands()
     }
@@ -136,7 +139,7 @@ class Commands {
   static google (query) {
     return new Promise((resolve, reject) => {
       google(query, (err, { links }) => {
-        if(err) reject(err)
+        if (err) reject(err)
 
         const topFiveLinks = links.slice(0, 6)
         resolve(topFiveLinks)
@@ -147,7 +150,13 @@ class Commands {
   static commands () {
     return new Promise((resolve, reject) => {
       resolve(`!discord, !songname, !next, !previous, !rickroll,
-        !ascii, !google, !request and !youtube`) 
+        !ascii, !google, !request, !uptime and !youtube`) 
+    })
+  }
+
+  static uptime () {
+    return new Promise((resolve, reject) => {
+      resolve(`https://decapi.me/twitch/uptime?channel=${twitch.identity.username}`)
     })
   }
 }
