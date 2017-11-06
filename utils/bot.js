@@ -31,7 +31,7 @@ class Bot {
 
       // Create a greeting and send it to twitch
       const greeting = {
-        content: `Suhhhh ${username} you the man now dog, but don't lurk O_o`,
+        content: `Suhhhh ${username} you the man now dog, but don't lurk O_o to see a list of available commands use !commands`,
         author: { username: twitch.identity.username }
       }
       this.sendToTwitch(greeting)

@@ -1,6 +1,6 @@
 {
   "name": "twitchcord-bot",
-  "version": "1.5.7",
+  "version": "1.6.7",
   "description": "A twitch dirscord bot",
   "main": "index.js",
   "bin": {
@@ -21,7 +21,6 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.0.1",
-    "chuck-norris-api": "^1.0.9",
     "discord.js": "^11.1.0",
     "figlet": "^1.2.0",
     "google": "^2.1.0",
